@@ -1,0 +1,138 @@
+<!--
+# /* ex: set filetype=html fenc=utf-8 expandtab ts=2 sw=2 : */
+-->
+<html><head><title>Zabbix</title>
+<style type="text/css">
+td {
+    padding: 3px 20px;
+    margin: 0;
+}
+table a, #right_div a             {text-decoration: none;}
+table a:hover, #right_div a:hover {text-decoration: underline;}
+.none { display: none; }
+iframe {
+    display: block;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    bottom: 0;
+    border: 0;
+    left: 30%;
+    width: 70%;
+    height: 100%;
+    background-color:  #ccf;
+}
+#right_div {
+    display: block;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    bottom: 0;
+    border: 0;
+    right: 0;
+    /* width: 500px; */
+    /* float: right; */
+    height: 100%;
+    /* background-color:  #fcc; */
+    overflow: scroll;
+}
+#leftdiv {
+    display: block;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    bottom: 0;
+    border: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color:  #fcc; */
+    overflow: scroll;
+}
+#table1   .even  { background-color: #eef; }
+#table1   .hover { background-color: #aaf; }
+input {
+    width: 400px;
+}
+</style>
+</head><body>
+<div id="right_div"></div>
+<!--
+<iframe name="iframename" src="https://p-infra-katello.ks.net"></iframe>
+-->
+<p>
+<input id="input_filter" type="text" />
+<a href="#" onclick="javascript:location.reload(true); return false;">refresh page</a>
+<!-- <a href="#" onclick="javascript:$.ajax('//katelloweb-refresh-hosts.sh').done(function () {location.reload(true);}); return false;">refresh list</a> -->
+<a target="mytarget" href="dummy1.html">Static Link #1</a>
+<a target="mytarget" href="dummy2.html">Static Link #2</a>
+<a target="mytarget" href="index.html">index.html</a>
+</p>
+<table id="table1" border="0" cellpadding="0" cellspacing="0">
+
+
+<tr><td><a target="mytarget" onclick="javascript:link_clicked(this);" href="https://www.zabbix.com/documentation/current/manual/config/triggers/dependencies">Trigger dependencies</a></td></tr>
+<tr><td><a target="mytarget" onclick="javascript:link_clicked(this);" href="https://www.zabbix.com/documentation/current/manual/config/triggers/expressions">Trigger expressions</a></td></tr>
+<tr><td><a target="mytarget" onclick="javascript:link_clicked(this);" href="https://www.zabbix.com/documentation/current/manual/appendix/functions">Trigger functions</a></td></tr>
+<tr><td><a target="mytarget" onclick="javascript:link_clicked(this);" href="https://www.zabbix.com/documentation/current/manual/config/items/itemtypes/calculated">Calculated items</a></td></tr>
+
+</table>
+
+<script type="text/javascript" src="jquery-3.6.0.slim.min.js"></script>
+<script type="text/javascript">
+var _timeout = -1
+var reset_timeout = function() {
+    clearTimeout(_timeout);
+    _timeout = setTimeout(function()
+    {   $('#input_filter').select();
+        reset_timeout();
+    }, 10 * 1000);
+
+
+}
+var link_clicked = function(elem) {
+    a1 = $(elem)
+    a2 = a1.clone()
+    a2.removeAttr('onclick');
+    td1 = a1.parent();
+    tdp = td1.prevAll();
+    if (tdp.length > 0)
+    {   a2.text($(tdp[tdp.length - 1]).text() + '-' + a2.text());
+    }
+    $('#right_div').prepend('<br />', a2);
+
+}
+var mrfilter = function() {
+    v = $('#input_filter').val();
+    reset_timeout()
+    /*
+    if (v.length < 3)
+    {   return;
+    }
+    */
+    $('tr').each(function()
+    {   t = $(this)
+        if (t.text().toLowerCase().indexOf(v) >= 0)
+        {   t.removeClass('none');
+        }
+        else
+        {   t.addClass('none');
+        }
+    });
+}
+var _prevtr = null;
+$('tr').mouseenter(function()
+{   if (_prevtr) _prevtr.removeClass('hover');
+    _prevtr = $(this);
+    _prevtr.addClass('hover');
+});
+$('#input_filter').keyup(mrfilter).focus().mouseover(function() {$(this).select();});
+
+$(document).ready(function() {
+  $("tr").odd().addClass("odd");
+  $("tr").even().addClass("even");
+  $("#input_filter").focus();
+});
+
+</script>
+</body></html>
