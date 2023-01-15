@@ -15,9 +15,14 @@ filelist() {
 
 
 filelist | while read file; do
-    set -x
-    convert -quality 85 -resize 1920 $file $(basename $file .jpg)-thumb.jpg
-    set +x
+    t="$(basename $file .jpg)"
+    test -d "$t" || mkdir "$t"
+    convert -quality 85 -resize 1920 "$file" "$t/${t}.jpg"
+    cat << EOF > "$t/index.html"
+<html><head><title>$t</title></head>
+<body><img src="${t}.jpg" /></body>
+</html>
+EOF
 done
 
 exit 0

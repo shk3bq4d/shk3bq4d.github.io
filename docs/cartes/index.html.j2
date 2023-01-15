@@ -1,0 +1,5 @@
+<html><body><ul>
+{% for f in lookup('fileglob', '*.jpg') | split(',') |reject('regex', 'thumb')| sort  %}
+<li><a href="./{{ f | splitext | first | basename }}">{{ f | splitext | first | basename }}</a></li>
+{% endfor %}
+</ul></body><html>
