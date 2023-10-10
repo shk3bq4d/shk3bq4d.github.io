@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query String Display</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<button onclick="copyToClipboard()">Copy to Clipboard</button>
+    <div id="queryText"></div>
+    <script>
+        // Function to get the query string
+        function getQueryString() {
+            var queryString = window.location.search;
+		    var i = queryString.lastIndexOf("=");
+			queryString = queryString.substring(i + 1);
+            return decodeURIComponent(queryString);
+        }
+
+		function copyToClipboard() {
+            var content = document.getElementById('queryText');
+            var textArea = document.createElement('textarea');
+            textArea.value = content.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('Content copied to clipboard');
+        }
+
+        // Get the query string and display it on the page
+        var query = getQueryString();
+        document.getElementById("queryText").textContent = query;
+    </script>
+</body>
+</html>
