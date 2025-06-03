@@ -36,6 +36,20 @@ iframe {
     /* background-color:  #fcc; */
     overflow: scroll;
 }
+#right_div {
+    display: block;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    bottom: 0;
+    border: 0;
+    right: 0;
+    /* width: 500px; */
+    /* float: right; */
+    height: 100%;
+    /* background-color:  #fcc; */
+    overflow: scroll;
+}
 #leftdiv {
     display: block;
     position: absolute;
@@ -56,17 +70,11 @@ input {
 }
 </style>
 </head><body>
-<div id="right_div"></div>
 <!--
 <iframe name="iframename" src="https://p-infra-katello.ks.net"></iframe>
 -->
 <p>
 <input id="input_filter" type="text" />
-<a href="#" onclick="javascript:location.reload(true); return false;">refresh page</a>
-<!-- <a href="#" onclick="javascript:$.ajax('//katelloweb-refresh-hosts.sh').done(function () {location.reload(true);}); return false;">refresh list</a> -->
-<a target="mytarget" href="dummy1.html">Static Link #1</a>
-<a target="mytarget" href="dummy2.html">Static Link #2</a>
-<a target="mytarget" href="index.html">index.html</a>
 </p>
 <table id="table1" border="0" cellpadding="0" cellspacing="0">
 
@@ -103,6 +111,15 @@ input {
 
 </table>
 
+<div id="right_div">
+<a href="#" onclick="javascript:location.reload(true); return false;">refresh page</a>
+<!-- <a href="#" onclick="javascript:$.ajax('//katelloweb-refresh-hosts.sh').done(function () {location.reload(true);}); return false;">refresh list</a> -->
+<a target="mytarget" href="dummy1.html">Static Link #1</a>
+<a target="mytarget" href="dummy2.html">Static Link #2</a>
+<a target="mytarget" href="index.html">index.html</a>
+</div>
+
+
 <script type="text/javascript" src="jquery-3.6.0.slim.min.js"></script>
 <script type="text/javascript">
 var _timeout = -1
@@ -124,7 +141,7 @@ var link_clicked = function(elem) {
     if (tdp.length > 0)
     {   a2.text($(tdp[tdp.length - 1]).text() + '-' + a2.text());
     }
-    $('#right_div').prepend('<br />', a2);
+    $('#right_div').prepend(a2, '<br />');
 
 }
 var mrfilter = function() {
